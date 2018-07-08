@@ -17,7 +17,7 @@ app.all("/*", function(req, res, next){
     next();
   });
 
-const server_port = process.env.PORT||2678;
+const server_port = process.env.PORT||3333;
 
  var EmailGlobal = null;
 
@@ -73,7 +73,7 @@ var auth = false;
     //console.log(req.body.Email);
     //console.log(n,p);
 if(!auth){
-    function isIdUnique (p) {
+    function isIdUnique (e) {
         return User.count({ where: {name:n, password: p, email:e} })
           .then(count => {
             if (count != 0) {
@@ -83,15 +83,15 @@ if(!auth){
         });
     }
 
-    isIdUnique(p).then(isUnique => {
+    isIdUnique(e).then(isUnique => {
         if (isUnique) {
             console.log(isUnique);
-            res.json('login');
+            res.json('You are login now');
             auth = isUnique;
             //res.status(200).send("person found")
         }
         else{
-            res.json('Enter correct name and password');
+            res.json('Enter correct name,email and password');
             console.log(p);
         }
     });
@@ -148,7 +148,7 @@ app.post('/books', (req, res) => {
     })
 }
 else{
-    res.json("login First");
+    res.json("You are not login");
 }
 
 })
@@ -204,25 +204,67 @@ app.post('/wishlist',function(req,res){
     //     req.body.Condition)
     //console.log(EmailGlobal);
     if(auth){
-        Wishlist.create({
-            bookid: req.body.Bookid,
-            email: EmailGlobal,
-            name: req.body.Name,
-            bookname: req.body.Bookname,
-            authorname: req.body.Authorname,
-            imageurl: req.body.Imageurl,
-            price: req.body.Price,
-            condition: req.body.Condition
-        }).then((user) => {
-            res.status(201).send(user)
-        }).catch((err) => {
-            res.status(501).send({
-                error: "Could not add new user"
-            })
-        })
+
+
+         var i =req.body.Bookid;
+         var e = EmailGlobal;
+
+
+
+        function isIdUnique (e) {
+            return Wishlist.count({ where: {bookid: i, email: e} })
+              .then(count => {
+                if (count != 0) {
+                  return true;
+                }
+                return false;
+            });
+        }
+    
+        isIdUnique(e).then(isUnique => {
+            if (isUnique) {
+                console.log(isUnique);
+                res.json('Already added to wishlist');
+                //res.status(200).send("person found")
+            }
+            else{
+                res.json('Enter correct name,email and password');
+                Wishlist.create({
+                    bookid: req.body.Bookid,
+                    email: EmailGlobal,
+                    name: req.body.Name,
+                    bookname: req.body.Bookname,
+                    authorname: req.body.Authorname,
+                    imageurl: req.body.Imageurl,
+                    price: req.body.Price,
+                    condition: req.body.Condition
+                }).then((user) => {
+                    res.status(201).send(user)
+                }).catch((err) => {
+                    res.status(501).send({
+                        error: "Could not add new user"
+                    })
+                })
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     }
     else{
-        res.json("login First");
+        res.json("You are not login");
     }
 
 })
@@ -372,4 +414,4 @@ app.post('/Filtering',function(req,res){
 })
 
 
-app.listen(server_port, () => console.log('Server started at http://localhost:2678'))
+app.listen(server_port, () => console.log('Server started at http://localhost:3333'))

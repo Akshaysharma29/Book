@@ -1,14 +1,13 @@
 const Sequelize = require('sequelize')
 
-const db = new Sequelize('shop', '', '', {
-    host: 'localhost',
-    dialect: 'mysql',
-    operatorsAliases: op,
+const db = new Sequelize('mysqlite', '', '', {
+    host: '',
+    dialect: 'sqlite',
     pool: {
         min: 0,
         max: 5,
-        idle:5000,
-    }
+    },
+    "storage":"./mysqlite.sqlite"
 })
 
 const User = db.define('users', {

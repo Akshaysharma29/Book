@@ -539,7 +539,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Akshay Sharma\Desktop\nagarro\p_f_E_A\front\src\styles.css */"./src/styles.css");
+module.exports = __webpack_require__(/*! C:\Users\Akshay Sharma\Desktop\nagarro\p_f_E_A\Akshay_Bookyard\src\styles.css */"./src/styles.css");
 
 
 /***/ })
