@@ -1,11 +1,13 @@
 const Sequelize = require('sequelize')
 
-const db = new Sequelize('shop', 'root', '1234567', {
+const db = new Sequelize('shop', '', '', {
     host: 'localhost',
     dialect: 'mysql',
+    operatorsAliases: op,
     pool: {
         min: 0,
         max: 5,
+        idle:5000,
     }
 })
 

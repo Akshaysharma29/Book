@@ -17,6 +17,8 @@ app.all("/*", function(req, res, next){
     next();
   });
 
+const server_port = process.env.PORT||2678;
+
  var EmailGlobal = null;
 
 
@@ -370,4 +372,4 @@ app.post('/Filtering',function(req,res){
 })
 
 
-app.listen(2678, () => console.log('Server started at http://localhost:2678'))
+app.listen(server_port, () => console.log('Server started at http://localhost:2678'))
